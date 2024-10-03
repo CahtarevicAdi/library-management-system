@@ -11,29 +11,30 @@ public class Loan {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
-
-    @ManyToOne
     @JoinColumn(name = "borrower_id")
     private Borrower borrower;
 
-    private String borrowerName;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 
-    private LocalDate loanDate;
+    private LocalDate borrowDate;
     private LocalDate dueDate;
     private LocalDate returnDate;
+    private double fine;
+    private int extensions;
 
-    public Loan() {
-    }
 
-    public Loan(Book book, Borrower borrower, LocalDate loanDate, LocalDate dueDate) {
-        this.book = book;
+    public Loan() {}
+
+    public Loan(Borrower borrower, Book book, LocalDate borrowDate, LocalDate dueDate) {
         this.borrower = borrower;
-        this.borrowerName = borrower.getName();
-        this.loanDate = loanDate;
+        this.book = book;
+        this.borrowDate = borrowDate;
         this.dueDate = dueDate;
+        this.extensions = 0;
     }
+
 
     public Long getId() {
         return id;
@@ -41,6 +42,14 @@ public class Loan {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Borrower getBorrower() {
+        return borrower;
+    }
+
+    public void setBorrower(Borrower borrower) {
+        this.borrower = borrower;
     }
 
     public Book getBook() {
@@ -51,29 +60,12 @@ public class Loan {
         this.book = book;
     }
 
-    public Borrower getBorrower() {
-        return borrower;
+    public LocalDate getBorrowDate() {
+        return borrowDate;
     }
 
-    public void setBorrower(Borrower borrower) {
-        this.borrower = borrower;
-        this.borrowerName = borrower.getName();
-    }
-
-    public String getBorrowerName() {
-        return borrowerName;
-    }
-
-    public void setBorrowerName(String borrowerName) {
-        this.borrowerName = borrowerName;
-    }
-
-    public LocalDate getLoanDate() {
-        return loanDate;
-    }
-
-    public void setLoanDate(LocalDate loanDate) {
-        this.loanDate = loanDate;
+    public void setBorrowDate(LocalDate borrowDate) {
+        this.borrowDate = borrowDate;
     }
 
     public LocalDate getDueDate() {
@@ -90,5 +82,23 @@ public class Loan {
 
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
+    }
+
+
+    public double getFine() {
+        return fine;
+    }
+
+    public void setFine(double fine) {
+        this.fine = fine;
+    }
+
+
+    public int getExtensions() {
+        return extensions;
+    }
+
+    public void setExtensions(int extensions) {
+        this.extensions = extensions;
     }
 }
